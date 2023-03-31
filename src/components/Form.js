@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./Form.css";
+import Select from "react-select";
+const options = [
+  { value: "HTML", label: "HTML" },
+  { value: "CSS", label: "CSS" },
+  { value: "JS", label: "JS" },
+  { value: "REACTJS", label: "REACTJS" },
+];
 const Form = () => {
   const [userValues, setUserValues] = useState({
     name: "",
@@ -7,9 +14,15 @@ const Form = () => {
     password: "",
   });
   const [status, setStatus] = useState(false);
+
+  const [selected, setSelected] = useState([]);
+  const handleSelectChange = (values) => {
+    setSelected(values);
+  };
   const Clicked = (e) => {
     e.preventDefault();
     setStatus(true);
+    setSelected([]);
     setActive(false);
     setUserValues({ name: "", email: "", password: "" });
   };
@@ -18,21 +31,18 @@ const Form = () => {
     setUserValues({ ...userValues, [e.target.name]: e.target.value });
   };
   useEffect(() => {
-    if (userValues.name && userValues.email && userValues.password) {
+    if (
+      userValues.name &&
+      userValues.email &&
+      userValues.password &&
+      selected.length > 0
+    ) {
       setActive(true);
     }
-  }, [userValues]);
+  }, [selected, userValues]);
 
   return (
     <>
-      <div className="text-container">
-        Learn to code by watching others
-        <span>
-          See how experienced developers solve problems in real-time. Watching
-          scripted tutorials is great, but understanding how developers think is
-          invaluable.
-        </span>
-      </div>
       <div className="form-container">
         {status ? (
           <div className="form-status">
@@ -70,13 +80,14 @@ const Form = () => {
               onChange={handleChange}
               value={userValues.password}
             />
-            <select className="options-input">
-              <option defaultChecked>Choose your skills</option>
-              <option value="html">HTML</option>
-              <option value="javascript">Javascript</option>
-              <option value="css">CSS</option>
-              <option value="reactjs">ReactJs</option>
-            </select>
+            <Select
+              className="form-select options-input"
+              options={options}
+              onChange={handleSelectChange}
+              isMulti
+              value={selected}
+            />
+
             {active ? (
               <button
                 className="btn"
@@ -87,6 +98,7 @@ const Form = () => {
               </button>
             ) : (
               <button className="btn" disabled>
+                {" "}
                 CLAIM YOUR FREE TRIAL
               </button>
             )}

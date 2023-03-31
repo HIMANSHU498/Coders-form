@@ -1,0 +1,34 @@
+.text-container {
+  position: absolute;
+  width: 297px;
+  height: 151px;
+  left: 222px;
+  top: 201px;
+
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 38px;
+
+  /* or 35px */
+
+  letter-spacing: 0.025em;
+
+  color: #ffffff;
+}
+.text-container span {
+  position: absolute;
+  width: 385px;
+  height: 30px;
+  left: 2px;
+  top: 100px;
+
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+
+  letter-spacing: 0.018em;
+
+  color: #ffffff;
+}
